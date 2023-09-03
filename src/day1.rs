@@ -10,9 +10,7 @@ pub fn main() {
 }
 
 fn handle_input(text: String) {
-    let mut top1: usize = 0;
-    let mut top2: usize = 0;
-    let mut top3: usize = 0;
+    let mut top_list: Vec<usize> = vec![0, 0, 0];
     let mut temp_cals: usize = 0;
 
     text.lines().enumerate().for_each(|(line_nr, line_txt)| {
@@ -22,29 +20,22 @@ fn handle_input(text: String) {
                 Err(_) => panic!("Could not parse line nr {line_nr}"),
             }
         } else {
-            match temp_cals >= top3 {
-                true => match temp_cals >= top2 {
-                    true => match temp_cals >= top1 {
-                        true => {
-                            top2 = top1;
-                            top1 = temp_cals;
-                        }
-                        false => {
-                            top3 = top2;
-                            top2 = temp_cals;
-                        }
-                    },
-                    false => top3 = temp_cals,
-                },
-                _ => (),
+            if let Some(pos) = top_list.iter().position(|nr| temp_cals >= *nr) {
+                top_list.insert(pos, temp_cals);
+                top_list.pop();
             }
 
             temp_cals = 0;
         }
     });
 
-    println!("Highest calories: {top1}");
-    println!("top2: {top2}");
-    println!("top3: {top3}");
-    println!("Sum top3 calories: {:?}", top1 + top2 + top3);
+    println!(
+        "calories: {:?}",
+        top_list.iter().fold(0, |acc, elm| acc + elm)
+    );
+
+    // println!("Highest calories: {top1}");
+    // println!("top2: {top2}");
+    // println!("top3: {top3}");
+    // println!("Sum top3 calories: {:?}", top1 + top2 + top3);
 }
