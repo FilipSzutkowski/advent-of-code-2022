@@ -28,7 +28,7 @@ pub fn main() {
 
     match read_to_string(FILE_PATH) {
         Ok(text) => handle_input(text),
-        Err(err) => println!("Panicked lolx /n{err}"),
+        Err(err) => println!("Panicked lolz /n{err}"),
     }
 }
 
