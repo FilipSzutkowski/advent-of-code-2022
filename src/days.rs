@@ -1,7 +1,8 @@
 use crate::day1::main as day1;
+use crate::day2::main as day2;
 
 pub fn run_day(number: usize) {
-    let all_days = [day1];
+    let all_days = [day1, day2];
 
     match all_days.get(number - 1) {
         Some(day) => day(),
